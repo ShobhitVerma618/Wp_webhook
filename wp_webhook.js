@@ -152,7 +152,7 @@ async function createLead(form,Wdata,meta){
     //get user to assign 
     var user = await getUserId();
     var user2 = {}
-    if(user === "Ben Wright"){
+    if(user === "user_J1uZtxhtHJLCvg8s51uXRnrStRSirkbBRKA2yLQTaej"){
         user2 =  {
             "id":"user_J1uZtxhtHJLCvg8s51uXRnrStRSirkbBRKA2yLQTaej",
             "acc_id":"emailacct_c5250g6oWRBmOuTKNitWBYnmsmkk7fIjAwiU8KcwAQ2",
