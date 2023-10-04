@@ -276,6 +276,7 @@ async function createOppertunity(data,leadid,user){
 // subscribe contact to sequence
 
 async function sequenceSubscription(cid,cEmail,user){
+    console.log(user.acc_id,user.name,user.email,user.id);
     var sequenceData = {
         "sequence_id": "seq_3AD1k9f65xIdkzRGfc9ur1",
         "contact_id": cid,
