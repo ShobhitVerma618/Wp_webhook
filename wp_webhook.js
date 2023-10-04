@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const apiUrl = 'https://api.close.com/api/v1/lead/';
 const apiUrl2 = 'https://api.close.com/api/v1/task/';
 const apiUrl3 = 'https://api.close.com/api/v1/opportunity/';
+const apiUrl4 = 'https://api.close.com/api/v1/sequence_subscription/';
 const apiKey = 'Basic YXBpXzVwdXdwOTZOUnY2b21SeGFHZ1d4bTcuNm9IdzFVTEVSdWFKY3NZeUdOQUs4Nzo6'; // Replace with your Close API key
 
  // Set the headers with your API key
@@ -32,24 +33,6 @@ app.post('/webhook', (req, res) => {
   res.status(200).send('Data received successfully.');
 });
 
-function createLead2(form,Wdata,meta){
-    
-    Bname = (Wdata.businessname.value);
-    fname = (Wdata.fname.value);
-    lname = (Wdata.lname.value);
-    email = (Wdata.email.value);
-    mobile = (Wdata.mobile.value);
-    state = (Wdata.state.value);
-    meta2 = (meta.user_agent.value);
-  console.log(fname);
-  console.log(lname);
-  console.log(email);
-  console.log(mobile);
-  console.log(state);
-  console.log(meta2);
-  console.log(meta.time.value);
-  console.log(meta.date.value);
-}
 //code to format date
 function getDate(){
     const currentTimestamp = Date.now();
@@ -164,14 +147,26 @@ async function createLead(form,Wdata,meta){
     const formattedPhone = addPrefix(phoneString);
     console.log(formattedPhone);
     //create lead
-    var leadid = await createlead(Fdata,formattedEmail,formattedPhone);
-    console.log(leadid);
+    var lead = await createlead(Fdata,formattedEmail,formattedPhone);
+    console.log(lead.id);
     //get user to assign 
     var user = await getUserId();
+    var user2 = {}
+    if(user === "Ben Wright"){
+        user2 =  {
+            "id":"user_J1uZtxhtHJLCvg8s51uXRnrStRSirkbBRKA2yLQTaej",
+            "acc_id":"emailacct_c5250g6oWRBmOuTKNitWBYnmsmkk7fIjAwiU8KcwAQ2",
+            "name":"Ben Wright",
+            "email":"ben@enableus.com.au"
+        }
+    }
+    
     //create task
-    await createTask(leadid,user,Fdata.date);
+    await createTask(lead.id,user,Fdata.date);
     //create Opportunity
-    await createOppertunity(Fdata,leadid,user);
+    await createOppertunity(Fdata,lead.id,user);
+    //subscribe contact to workflow
+    await sequenceSubscription(lead.contacts[0].id,lead.contacts[0].emails.email,user2)
 
 }
 
@@ -217,7 +212,7 @@ async function createlead(data,url,fPhone){
       .then(function (response) {
           // Handle the successful response here
           console.log('Lead created successfully:', response.data);
-          lead = response.data.id;
+          lead = response.data;
       })
       .catch(function (error) {
           // Handle any errors that occurred during the request
@@ -278,7 +273,30 @@ async function createOppertunity(data,leadid,user){
           });
 }
 
+// subscribe contact to sequence
 
+async function sequenceSubscription(cid,cEmail,user){
+    var sequenceData = {
+        "sequence_id": "seq_3AD1k9f65xIdkzRGfc9ur1",
+        "contact_id": cid,
+        "contact_email": cEmail,
+        "sender_account_id": user.acc_id,
+        "sender_name": user.name,
+        "sender_email": user.email,
+        "calls_assigned_to": [user.id]
+    }
+      
+          // Make a POST request to create the task
+      await axios.post(apiUrl4, sequenceData, { headers })
+      .then(function (response) {
+          // Handle the successful response here
+          console.log('task created successfully:', response.data);
+      })
+      .catch(function (error) {
+          // Handle any errors that occurred during the request
+          console.error('Error creating task:', error);
+      });
+}
 
 // Start the server
 app.listen(port, () => {
