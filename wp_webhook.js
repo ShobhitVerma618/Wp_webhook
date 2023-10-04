@@ -16,7 +16,7 @@ app.post('/webhook', (req, res) => {
 
   // Process and store the data as needed
   console.log('Received data:', data);
-  createLead2(data.form.name,data.fields,data.meta);
+  createLead(data.form.name,data.fields,data.meta);
   // Respond with a success message
   res.status(200).send('Data received successfully.');
 });
