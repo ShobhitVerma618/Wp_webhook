@@ -22,14 +22,22 @@ app.post('/webhook', (req, res) => {
 });
 
 function createLead2(form,Wdata,meta){
-    console.log(form,Wdata,meta)
-//Bname = (Wdata.businessname.value);
-  //  fname = (Wdata.fname.value);
-    //lname = (Wdata.lname.value);
-    //email = (Wdata.email.value);
-    //mobile = (Wdata.mobile.value);
-    //state = (Wdata.state.value);
-    //meta = (meta.user_agent.value);
+    
+    Bname = (Wdata.businessname.value);
+    fname = (Wdata.fname.value);
+    lname = (Wdata.lname.value);
+    email = (Wdata.email.value);
+    mobile = (Wdata.mobile.value);
+    state = (Wdata.state.value);
+    meta2 = (meta.user_agent.value);
+  console.log(fname);
+  console.log(lname);
+  console.log(email);
+  console.log(mobile);
+  console.log(state);
+  console.log(meta2);
+  console.log(meta.time.value);
+  console.log(meta.date.value);
 }
 //code to format date
 function getDate(){
