@@ -9,6 +9,17 @@ const port = 3629; // Change to the port you prefer
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Define your Close API endpoint and API key
+const apiUrl = 'https://api.close.com/api/v1/lead/';
+const apiUrl2 = 'https://api.close.com/api/v1/task/';
+const apiUrl3 = 'https://api.close.com/api/v1/opportunity/';
+const apiKey = 'Basic YXBpXzVwdXdwOTZOUnY2b21SeGFHZ1d4bTcuNm9IdzFVTEVSdWFKY3NZeUdOQUs4Nzo6'; // Replace with your Close API key
+
+ // Set the headers with your API key
+ const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `${apiKey}`,
+};
 
 // Handle POST requests to your webhook endpoint
 app.post('/webhook', (req, res) => {
