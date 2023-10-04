@@ -66,7 +66,7 @@ function createLead(Wdata,meta){
     console.log(Wdata.email.value);
     console.log(Wdata.mobile.value);
     console.log(Wdata.state.value);
-    console.log(meta.value);
+    console.log(meta.user_agent.value);
 
     const emailString = Wdata['Email'];
     const formattedEmail = sliceStringFromAt(emailString);
