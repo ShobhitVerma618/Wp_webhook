@@ -16,7 +16,7 @@ app.post('/webhook', (req, res) => {
 
   // Process and store the data as needed
   console.log('Received data:', data);
-  createLead(data.fields);
+  createLead(data.fields,data.meta);
   // Respond with a success message
   res.status(200).send('Data received successfully.');
 });
@@ -59,14 +59,14 @@ function addPrefix(string) {
   }
 }
 
-function createLead(Wdata){
+function createLead(Wdata,meta){
     console.log(Wdata.businessname.value);
     console.log(Wdata.fname.value);
     console.log(Wdata.lname.value);
     console.log(Wdata.email.value);
     console.log(Wdata.mobile.value);
     console.log(Wdata.state.value);
-    console.log(Wdata.meta.value);
+    console.log(meta.value);
 
     const emailString = Wdata['Email'];
     const formattedEmail = sliceStringFromAt(emailString);
