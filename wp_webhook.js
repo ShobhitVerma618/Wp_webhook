@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const axios = reqfuire('axios')
+const axios = require('axios')
 
 const app = express();
 const port = 3629; // Change to the port you prefer
