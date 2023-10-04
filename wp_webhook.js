@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const axios = require('axios')
 
 const app = express();
-const port = 3620; // Change to the port you prefer
+const port = 3660; // Change to the port you prefer
 
 // Parse JSON and URL-encoded bodies
 app.use(bodyParser.json());
@@ -60,19 +60,19 @@ function addPrefix(string) {
 }
 
 function createLead(Wdata,meta){
-    console.log(Wdata.businessname.value);
-    console.log(Wdata.fname.value);
-    console.log(Wdata.lname.value);
-    console.log(Wdata.email.value);
-    console.log(Wdata.mobile.value);
-    console.log(Wdata.state.value);
-    console.log(meta.user_agent.value);
+    Bname = (Wdata.businessname.value);
+    fname = (Wdata.fname.value);
+    lname = (Wdata.lname.value);
+    email = (Wdata.email.value);
+    mobile = (Wdata.mobile.value);
+    state = (Wdata.state.value);
+    meta = (meta.user_agent.value);
 
-    const emailString = Wdata['Email'];
+    const emailString = email;
     const formattedEmail = sliceStringFromAt(emailString);
     console.log(formattedEmail);
 
-    const phoneString = Wdata['Mobile'];
+    const phoneString = mobile;
     const formattedPhone = addPrefix(phoneString);
     console.log(formattedPhone);
 
