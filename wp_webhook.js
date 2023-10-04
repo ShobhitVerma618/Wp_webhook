@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const axios = require('axios')
+const axios = reqfuire('axios')
 
 const app = express();
 const port = 3629; // Change to the port you prefer
@@ -16,12 +16,21 @@ app.post('/webhook', (req, res) => {
 
   // Process and store the data as needed
   console.log('Received data:', data);
-  createLead(data.form.name,data.fields,data.meta);
+  createLead2(data.form.name,data.fields,data.meta);
   // Respond with a success message
   res.status(200).send('Data received successfully.');
 });
 
-
+function createLead2(form,Wdata,meta){
+    console.log(form,Wdata,meta)
+//Bname = (Wdata.businessname.value);
+  //  fname = (Wdata.fname.value);
+    //lname = (Wdata.lname.value);
+    //email = (Wdata.email.value);
+    //mobile = (Wdata.mobile.value);
+    //state = (Wdata.state.value);
+    //meta = (meta.user_agent.value);
+}
 //code to format date
 function getDate(){
     const currentTimestamp = Date.now();
@@ -115,13 +124,6 @@ async function getUserId(){
 
 
 async function createLead(form,Wdata,meta){
-    Bname = (Wdata.businessname.value);
-    fname = (Wdata.fname.value);
-    lname = (Wdata.lname.value);
-    email = (Wdata.email.value);
-    mobile = (Wdata.mobile.value);
-    state = (Wdata.state.value);
-    meta = (meta.user_agent.value);
     var Fdata = {
         "form":form,
         "Bname":Wdata.businessname.value,
